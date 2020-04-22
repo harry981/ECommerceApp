@@ -1,13 +1,14 @@
-var express=require('express')
+/*jslint node: true */
+const express = require('express')
 
-var app=express();
+const app = express();
 
-var PORT=process.env.PORT||3000;
+const PORT = process.env.PORT || 3000;
 
-app.get('/',(req,res)=>{
-   res.send("Welcome to my API !!")
+app.get('/', (req, res) => {
+  res.send("Welcome to my API !!")
 })
 
-app.listen(PORT,()=>{
-    console.log('Running on Port : '+PORT)
+app.listen(PORT, () => {
+  console.log('Running on Port : ' + PORT)
 })
