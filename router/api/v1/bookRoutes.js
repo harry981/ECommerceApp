@@ -1,4 +1,5 @@
 const express=require('express')
+const bodyParser=require('body-parser')
 const Book=require('../../../models/bookModel')
 const router=express.Router();
 
@@ -22,6 +23,13 @@ router.get('/books/:bookId',(req,res)=>{
        }
        return res.json({bookById:book})
     })
+    })
+
+    router.post('/books',(req,res)=>{
+              var book=new Book(req.body)
+
+              console.log("added book",book)
+              return res.json({addedBook:book})
     })
 
 module.exports=router;
