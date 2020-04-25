@@ -10,7 +10,13 @@ router.get('/books', (req, res) => {
             const errResp = { errorResponse: err }
             return res.json(errResp)
         }
-        return res.json({ Booklist: books })
+        const returnBooks=books.map((book)=>{
+            const newBook=book.toJSON();
+            newBook.links={};
+            newBook.links.self=`http://${req.headers.host}/api/book/books/${book._id}`
+            return newBook;
+        })
+        return res.json({ Booklist: returnBooks })
 
     })
 })
@@ -21,7 +27,11 @@ router.get('/books/:bookId', (req, res) => {
             const errResp = { errorResponse: err }
             return res.json(errResp)
         }
-        return res.json({ bookById: book })
+        const newBook=book.toJSON();
+        newBook.links={}
+        const genre=book.genre.replace(' ','%20')
+        newBook.links.filterByThisGenre=`http://${req.headers.host}/api/book/books/?genre=${genre}`
+        return res.json({ bookById: newBook })
     })
 })
 
